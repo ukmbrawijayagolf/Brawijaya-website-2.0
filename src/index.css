@@ -1,0 +1,313 @@
+/* ==========================================================================
+   BRAWIJAYA GOLF (ALBATROS) - OFFICIAL DESIGN SYSTEM & GLOBAL STYLES
+   Color Palette:
+   - #000000 (Deep Noir / Dark Canvas)
+   - #111D49 (Imperial Midnight Navy)
+   - #6386AC (Fairway Slate Blue)
+   - #D8DFE5 (Frost Platinum Gray)
+   - #FDF6E5 (Warm Ivory Gold / Cream)
+   ========================================================================== */
+
+:root {
+  /* Core Color Tokens */
+  --color-black: #000000;
+  --color-navy: #111D49;
+  --color-slate: #6386AC;
+  --color-frost: #D8DFE5;
+  --color-ivory: #FDF6E5;
+
+  /* Translucent & Alpha Variations for Glassmorphism */
+  --bg-dark: #070b18;
+  --bg-navy-90: rgba(17, 29, 73, 0.92);
+  --bg-navy-80: rgba(17, 29, 73, 0.82);
+  --bg-navy-60: rgba(17, 29, 73, 0.60);
+  --bg-navy-40: rgba(17, 29, 73, 0.40);
+  --bg-card: rgba(17, 29, 73, 0.55);
+  --bg-card-hover: rgba(22, 38, 92, 0.75);
+
+  --border-subtle: rgba(216, 223, 229, 0.14);
+  --border-light: rgba(216, 223, 229, 0.28);
+  --border-gold: rgba(253, 246, 229, 0.45);
+
+  --text-primary: #FDF6E5;
+  --text-secondary: #D8DFE5;
+  --text-muted: #8fa7c4;
+  --text-dark: #111D49;
+
+  /* Typography */
+  --font-serif: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 10px 30px rgba(7, 11, 24, 0.55);
+  --shadow-lg: 0 18px 45px rgba(7, 11, 24, 0.75);
+  --shadow-gold: 0 8px 24px rgba(253, 246, 229, 0.20);
+  --shadow-glow: 0 0 35px rgba(99, 134, 172, 0.28);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-black);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(17, 29, 73, 0.75), transparent 70%),
+    radial-gradient(circle at 10% 40%, rgba(99, 134, 172, 0.12), transparent 45%),
+    radial-gradient(circle at 90% 70%, rgba(17, 29, 73, 0.35), transparent 50%),
+    linear-gradient(180deg, #050811 0%, #000000 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #060a15;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e3268;
+  border-radius: 5px;
+  border: 2px solid #060a15;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-slate);
+}
+
+/* Typography Presets */
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  color: var(--color-ivory);
+}
+
+p {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 64px 0;
+  }
+}
+
+/* Section Header Utility */
+.section-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 56px auto;
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(99, 134, 172, 0.15);
+  border: 1px solid rgba(216, 223, 229, 0.25);
+  color: var(--color-ivory);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.25;
+  margin-bottom: 16px;
+  color: var(--color-ivory);
+}
+
+.section-title span.highlight {
+  color: var(--color-ivory);
+  background: linear-gradient(135deg, #FDF6E5 30%, #6386AC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Luxury Card with Glassmorphism */
+.luxury-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 32px;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.luxury-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border-gold), transparent);
+  opacity: 0.6;
+}
+
+.luxury-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-ivory);
+  color: var(--color-navy);
+  box-shadow: 0 4px 20px rgba(253, 246, 229, 0.25);
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(253, 246, 229, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(17, 29, 73, 0.7);
+  color: var(--color-ivory);
+  border: 1px solid var(--color-slate);
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background: rgba(99, 134, 172, 0.25);
+  border-color: var(--color-frost);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.btn-ghost {
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+  color: var(--color-ivory);
+  background: rgba(216, 223, 229, 0.08);
+  border-color: var(--border-subtle);
+}
+
+/* Subtle Golf Mesh Pattern Overlay */
+.golf-pattern-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(216, 223, 229, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+/* Keyframes */
+@keyframes floatUpAndDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(99, 134, 172, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(253, 246, 229, 0.45);
+  }
+}
+
+@keyframes textShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
