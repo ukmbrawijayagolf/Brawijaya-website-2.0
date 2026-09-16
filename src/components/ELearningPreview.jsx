@@ -21,7 +21,7 @@ export default function ELearningPreview({ onOpenRegister }) {
         <div className="section-header">
           <div className="section-badge">
             <BookOpen size={14} color="#FDF6E5" />
-            Akademi & E-Learning Golf
+            E-Learning Golf
           </div>
           <h2 className="section-title">
             Kurikulum Pembinaan <span className="highlight">Pegolf Mahasiswa</span>

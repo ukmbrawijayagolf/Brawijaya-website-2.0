@@ -35,8 +35,8 @@
   --text-dark: #111D49;
 
   /* Typography */
-  --font-serif: 'Cinzel', 'Playfair Display', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Poppins', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Elevation Shadows */
   --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.35);
