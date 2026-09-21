@@ -32,21 +32,16 @@ export default function Footer() {
                   width: "40px",
                   height: "40px",
                   borderRadius: "10px",
-                  background: "linear-gradient(135deg, #111D49 0%, #1e3375 100%)",
-                  border: "1.5px solid #FDF6E5",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center"
                 }}
               >
-                <Flag size={20} color="#FDF6E5" />
+                  <img src="/assets/logo/logo_ubg.png" alt="" style={{ width: "50px", height: "50px" }} />
               </div>
               <div>
                 <div style={{ fontFamily: "var(--font-serif)", fontSize: "1.1rem", fontWeight: 700, color: "var(--color-ivory)" }}>
                   BRAWIJAYA GOLF
-                </div>
-                <div style={{ fontSize: "0.7rem", letterSpacing: "0.2em", color: "var(--color-frost)" }}>
-                  ALBATROS • EST. 2021
                 </div>
               </div>
             </div>
@@ -57,7 +52,7 @@ export default function Footer() {
 
             <div style={{ display: "flex", gap: "12px" }}>
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/brawijayagolf"
                 target="_blank"
                 rel="noreferrer"
                 style={{
@@ -81,7 +76,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://youtube.com"
+                href="https://youtube.com/@UKMGolfBrawijaya"
                 target="_blank"
                 rel="noreferrer"
                 style={{
@@ -104,7 +99,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="mailto:golf@ub.ac.id"
+                href="mailto:ukmbrawijayagolf@gmail.com"
                 style={{
                   width: "38px",
                   height: "38px",
@@ -161,10 +156,8 @@ export default function Footer() {
               Home Course & Venue
             </h4>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px", fontSize: "0.88rem", color: "var(--color-frost)" }}>
-              <li>⛳ Araya Golf & Family Club, Malang</li>
-              <li>⛳ Taman Dayu Golf Club & Resort, Pasuruan</li>
-              <li>⛳ Finna Golf & Country Club Resort</li>
-              <li>⛳ Driving Range Dirgantara Malang</li>
+              <li>Abdurrahman Saleh Padang Golf, Malang</li>
+              <li>Araya Golf & Family Club, Malang</li>
             </ul>
           </div>
 
@@ -184,7 +177,7 @@ export default function Footer() {
               </div>
               <div style={{ display: "flex", gap: "10px" }}>
                 <Mail size={18} color="#6386AC" style={{ flexShrink: 0 }} />
-                <span>ukm.golf@ub.ac.id</span>
+                <span>ukmbrawijayagolf@gmail.com</span>
               </div>
             </div>
           </div>

@@ -58,29 +58,16 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
           {/* Custom Winged Golf Emblem */}
           <div
             style={{
-              width: "44px",
-              height: "44px",
-              borderRadius: "12px",
-              background: "linear-gradient(135deg, #111D49 0%, #1e3375 100%)",
-              border: "1.5px solid #FDF6E5",
+              width: "50px",
+              height: "50px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 15px rgba(253, 246, 229, 0.25)",
               position: "relative",
               overflow: "hidden"
             }}
           >
-            <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
-              {/* Crest Wings */}
-              <path d="M12 45 C 30 25, 45 42, 50 55 C 55 42, 70 25, 88 45 C 72 65, 58 60, 50 62 C 42 60, 28 65, 12 45 Z" fill="#6386AC" opacity="0.85" />
-              {/* Crossed Clubs */}
-              <line x1="28" y1="75" x2="72" y2="25" stroke="#FDF6E5" strokeWidth="4.5" strokeLinecap="round"/>
-              <line x1="72" y1="75" x2="28" y2="25" stroke="#FDF6E5" strokeWidth="4.5" strokeLinecap="round"/>
-              {/* Center Ball */}
-              <circle cx="50" cy="50" r="8" fill="#FDF6E5"/>
-              <circle cx="48" cy="48" r="2" fill="#111D49"/>
-            </svg>
+            <img src="/assets/logo/logo_ubg.png" alt="" style={{ width: "50px", height: "50px" }} />
           </div>
 
           <div>
@@ -97,32 +84,6 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
               }}
             >
               BRAWIJAYA GOLF
-              <span
-                style={{
-                  fontSize: "0.65rem",
-                  padding: "2px 7px",
-                  borderRadius: "999px",
-                  background: "rgba(99, 134, 172, 0.3)",
-                  border: "1px solid rgba(216, 223, 229, 0.3)",
-                  color: "#FDF6E5",
-                  fontFamily: "var(--font-sans)",
-                  letterSpacing: "0.15em",
-                  fontWeight: 600
-                }}
-              >
-                UB
-              </span>
-            </div>
-            <div
-              style={{
-                fontSize: "0.72rem",
-                letterSpacing: "0.22em",
-                color: "var(--color-frost)",
-                fontWeight: 600,
-                textTransform: "uppercase"
-              }}
-            >
-              ALBATROS • EST. 2021
             </div>
           </div>
         </a>
@@ -199,7 +160,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
             Login
           </button>
 
-          <button
+          {/* <button
             onClick={onOpenRegister}
             className="btn btn-primary"
             style={{
@@ -212,7 +173,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
           >
             <Sparkles size={16} />
             Gabung UBG
-          </button>
+          </button> */}
         </div>
 
         {/* Mobile Hamburger Toggle */}

@@ -1,39 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Award, ChevronDown, Compass, Play, Trophy, Sparkles, ArrowUpRight } from "lucide-react";
 
 export default function Hero({ onOpenRegister }) {
-  // Animated typing/rotating text
-  const dynamicWords = [
-    "Pusat Prestasi & Sportivitas",
-    "Elegansi di Setiap Ayunan",
-    "Komunitas Pegolf Mahasiswa",
-    "Tradisi Juara Universitas Brawijaya"
-  ];
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
-  useEffect(() => {
-    const fullText = dynamicWords[currentWordIndex];
-    const typingSpeed = isDeleting ? 40 : 80;
-
-    const timer = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayedText(fullText.substring(0, displayedText.length + 1));
-        if (displayedText.length + 1 === fullText.length) {
-          setTimeout(() => setIsDeleting(true), 2200);
-        }
-      } else {
-        setDisplayedText(fullText.substring(0, displayedText.length - 1));
-        if (displayedText.length === 0) {
-          setIsDeleting(false);
-          setCurrentWordIndex((prev) => (prev + 1) % dynamicWords.length);
-        }
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, currentWordIndex]);
 
   return (
     <section
@@ -84,7 +53,7 @@ export default function Hero({ onOpenRegister }) {
 
       <div className="container" style={{ position: "relative", zIndex: 2, textAlign: "center" }}>
         {/* Top Collegiate Badge */}
-        <div
+        {/* <div
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -118,12 +87,11 @@ export default function Hero({ onOpenRegister }) {
               backgroundColor: "#6386AC"
             }}
           />
-        </div>
+        </div> */}
 
-        {/* Animated Typing Subhead */}
-        <div
+        {/* Static Subhead */}
+        {/* <div
           style={{
-            minHeight: "32px",
             marginBottom: "12px",
             display: "flex",
             alignItems: "center",
@@ -141,18 +109,9 @@ export default function Hero({ onOpenRegister }) {
               textTransform: "uppercase"
             }}
           >
-            {displayedText}
+            Pusat Prestasi &amp; Sportivitas
           </span>
-          <span
-            style={{
-              display: "inline-block",
-              width: "2px",
-              height: "18px",
-              backgroundColor: "var(--color-ivory)",
-              animation: "pulseGlow 1s infinite"
-            }}
-          />
-        </div>
+        </div> */}
 
         {/* Main Title: Brawijaya Golf */}
         <h1
