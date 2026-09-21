@@ -19,10 +19,10 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
 
   const navLinks = [
     { label: "Home", href: "#home" },
-    { label: "E-Learning", href: "#elearning" },
     { label: "About", href: "#about" },
+    { label: "Prestasi", href: "#prestasi" },
     { label: "Kegiatan", href: "#kegiatan" },
-    { label: "Prestasi", href: "#prestasi" }
+    { label: "E-Learning", href: "#elearning" }
   ];
 
   return (

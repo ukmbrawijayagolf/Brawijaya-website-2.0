@@ -63,7 +63,6 @@ export default function ELearningPage({ onOpenRegister }) {
           {ELEARNING_MODULES.map((mod) => (
             <div
               key={mod.id}
-              className="luxury-card"
               style={{
                 display: "flex",
                 flexDirection: "column",

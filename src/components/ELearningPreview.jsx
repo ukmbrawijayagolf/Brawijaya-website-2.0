@@ -118,37 +118,7 @@ export default function ELearningPreview({ onOpenRegister }) {
           ))}
         </div>
 
-        {/* Member Access Banner */}
-        <div
-          className="luxury-card"
-          style={{
-            padding: "36px 40px",
-            background: "linear-gradient(135deg, rgba(17, 29, 73, 0.9) 0%, rgba(99, 134, 172, 0.3) 100%)",
-            border: "1px solid rgba(253, 246, 229, 0.3)",
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "24px"
-          }}
-        >
-          <div>
-            <h3 style={{ fontSize: "1.5rem", color: "var(--color-ivory)", marginBottom: "8px" }}>
-              Ingin Mengakses Seluruh Modul E-Learning & Bank Soal Rules?
-            </h3>
-            <p style={{ color: "var(--color-frost)", fontSize: "0.95rem" }}>
-              Modul lengkap, sertifikasi etiket, dan akses booking driving range tersedia bagi seluruh anggota resmi UKM Brawijaya Golf.
-            </p>
-          </div>
 
-          <button
-            onClick={onOpenRegister}
-            className="btn btn-primary"
-            style={{ padding: "14px 28px" }}
-          >
-            Registrasi Anggota Sekarang
-          </button>
-        </div>
 
         {/* Modal Video/Modul Preview */}
         {activeModule && (
