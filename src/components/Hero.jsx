@@ -147,22 +147,16 @@ export default function Hero({ onOpenRegister }) {
               background: "linear-gradient(90deg, transparent, #6386AC)"
             }}
           />
-          <h2
+          <img
+            src="/assets/logo/albatros_ivory.png"
+            alt="ALBATROS"
             style={{
-              fontSize: "clamp(1.6rem, 3.5vw, 2.5rem)",
-              fontFamily: "var(--font-serif)",
-              fontWeight: 900,
-              letterSpacing: "0.28em",
-              color: "#ffffff",
-              textTransform: "uppercase",
-              textShadow: "0 0 25px rgba(253, 246, 229, 0.45)",
-              background: "linear-gradient(180deg, #FFFFFF 0%, #D8DFE5 60%, #6386AC 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent"
+              height: "clamp(34px, 5vw, 54px)",
+              width: "auto",
+              objectFit: "contain",
+              filter: "drop-shadow(0 0 20px rgba(253, 246, 229, 0.45))"
             }}
-          >
-            ALBATROS
-          </h2>
+          />
           <span
             style={{
               height: "1.5px",

@@ -73,22 +73,29 @@ export default function HomePage({ onOpenRegister }) {
               fontWeight: 800,
               lineHeight: 1.15,
               letterSpacing: "0.02em",
-              marginBottom: "16px",
+              marginBottom: "20px",
               color: "var(--color-ivory)"
             }}
           >
             BRAWIJAYA GOLF
             <span
               style={{
-                display: "block",
-                fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)",
-                fontWeight: 600,
-                letterSpacing: "0.22em",
-                color: "var(--color-slate)",
-                marginTop: "8px"
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "14px"
               }}
             >
-              ALBATROS
+              <img
+                src="/assets/logo/albatros_ivory.png"
+                alt="ALBATROS Golf"
+                style={{
+                  height: "clamp(38px, 6vw, 64px)",
+                  width: "auto",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 4px 18px rgba(253, 246, 229, 0.35))"
+                }}
+              />
             </span>
           </h1>
 
@@ -180,7 +187,19 @@ export default function HomePage({ onOpenRegister }) {
                 Membuka Peluang Golf Bagi Setiap Mahasiswa
               </h2>
               <p style={{ color: "var(--color-frost)", lineHeight: 1.8, marginBottom: "16px", fontWeight: 300 }}>
-                Didirikan pada tahun 2021 di bawah naungan Rektorat Universitas Brawijaya, <strong>Brawijaya Golf (ALBATROS)</strong> hadir mematahkan stigma bahwa golf adalah olahraga yang eksklusif dan sulit dijangkau.
+                Didirikan pada tahun 2021 di bawah naungan Rektorat Universitas Brawijaya, <strong>Brawijaya Golf</strong>{" "}
+                <img
+                  src="/assets/logo/albatros_ivory.png"
+                  alt="ALBATROS"
+                  style={{
+                    height: "19px",
+                    display: "inline-block",
+                    verticalAlign: "middle",
+                    margin: "0 4px 3px 4px",
+                    filter: "drop-shadow(0 2px 6px rgba(253, 246, 229, 0.25))"
+                  }}
+                />{" "}
+                hadir mematahkan stigma bahwa golf adalah olahraga yang eksklusif dan sulit dijangkau.
               </p>
               <p style={{ color: "var(--text-muted)", lineHeight: 1.8, marginBottom: "28px", fontWeight: 300 }}>
                 Kami memfasilitasi mahasiswa dari nol — mulai dari pemahaman grip, stance, dan etiket lapangan — hingga pembinaan atlet mahasiswa yang siap mewakili Brawijaya di kejuaraan nasional perguruan tinggi.
@@ -272,7 +291,7 @@ export default function HomePage({ onOpenRegister }) {
                       Homebase & Driving Range Malang
                     </div>
                     <div style={{ color: "var(--text-muted)", fontSize: "0.85rem", marginTop: "4px" }}>
-                      Latihan rutin terpusat di Driving Range Dirgantara & Araya Golf Family Club.
+                      Latihan rutin terpusat di Abdurrahman Saleh Padang Golf & Araya Golf Family Club.
                     </div>
                   </div>
                 </div>
@@ -502,7 +521,7 @@ export default function HomePage({ onOpenRegister }) {
       </section>
 
       {/* 4. Sekilas Kegiatan Terdekat */}
-      <section style={{ padding: "90px 0", position: "relative" }}>
+      {/* <section style={{ padding: "90px 0", position: "relative" }}>
         <div className="container">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "40px", flexWrap: "wrap", gap: "20px" }}>
             <div>
@@ -616,7 +635,7 @@ export default function HomePage({ onOpenRegister }) {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 5. Clean Call to Action */}
       <section style={{ padding: "80px 0 100px 0", position: "relative" }}>

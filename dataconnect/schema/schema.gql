@@ -1,0 +1,34 @@
+type User @table(key: ["authUid"]) {
+  authUid: String!
+  email: String!
+  createdAt: Timestamp!
+  displayName: String
+  avatarUrl: String
+  role: Role
+}
+
+type Profile @table {
+  user: User! @ref
+  bio: String!
+  themePreference: String!
+}
+
+type Record @table {
+  title: String!
+  content: String!
+  createdAt: Timestamp!
+  tags: [String]
+  isPublic: Boolean!
+  user: User! @ref
+}
+
+type AuditLog @table {
+  eventType: String!
+  timestamp: Timestamp!
+  user: User! @ref
+}
+
+type Role @table {
+  roleName: String!
+  user: User @ref
+}

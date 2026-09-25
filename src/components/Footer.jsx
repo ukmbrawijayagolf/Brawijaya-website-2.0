@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, ExternalLink, ArrowUp, Flag } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -126,25 +127,26 @@ export default function Footer() {
             </h4>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "12px" }}>
               {[
-                { name: "Beranda Utama", href: "#home" },
-                { name: "E-Learning & Kurikulum", href: "#elearning" },
-                { name: "Profil UKM & Filosofi Albatros", href: "#about" },
-                { name: "Galeri Prestasi Kampus", href: "#prestasi" },
-                { name: "Agenda & Slide Kegiatan", href: "#kegiatan" }
+                { name: "Beranda Utama", to: "/" },
+                { name: "E-Learning & Kurikulum", to: "/elearning" },
+                { name: "Profil UKM & Filosofi Albatros", to: "/tentang" },
+                { name: "Galeri Prestasi Kampus", to: "/prestasi" },
+                { name: "Agenda & Slide Kegiatan", to: "/kegiatan" }
               ].map((link, idx) => (
                 <li key={idx}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.to}
                     style={{
                       fontSize: "0.88rem",
                       color: "var(--color-frost)",
-                      transition: "color 0.2s ease"
+                      transition: "color 0.2s ease",
+                      textDecoration: "none"
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-ivory)")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-frost)")}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

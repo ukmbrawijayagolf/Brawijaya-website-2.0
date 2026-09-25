@@ -1,0 +1,63 @@
+mutation CreateSeedData @transaction {
+  user_insertMany(data: [
+    {
+      authUid: "user-1",
+      email: "alice@example.com",
+      createdAt: "2023-01-01T00:00:00Z",
+      displayName: "Alice"
+    },
+    {
+      authUid: "user-2",
+      email: "bob@example.com",
+      createdAt: "2023-01-02T00:00:00Z",
+      displayName: "Bob"
+    },
+    {
+      authUid: "user-3",
+      email: "charlie@example.com",
+      createdAt: "2023-01-03T00:00:00Z",
+      displayName: "Charlie"
+    }
+  ])
+  role_insertMany(data: [
+    { roleName: "Admin", userAuthUid: "user-1" },
+    { roleName: "Editor", userAuthUid: "user-2" },
+    { roleName: "Viewer", userAuthUid: "user-3" }
+  ])
+  profile_insertMany(data: [
+    { userAuthUid: "user-1", bio: "Admin bio", themePreference: "dark" },
+    { userAuthUid: "user-2", bio: "Editor bio", themePreference: "light" },
+    { userAuthUid: "user-3", bio: "Viewer bio", themePreference: "system" }
+  ])
+  record_insertMany(data: [
+    {
+      title: "First Record",
+      content: "Hello World",
+      createdAt: "2023-02-01T10:00:00Z",
+      tags: ["intro", "seed"],
+      isPublic: true,
+      userAuthUid: "user-1"
+    },
+    {
+      title: "Second Record",
+      content: "Firebase Data Connect is cool",
+      createdAt: "2023-02-02T11:00:00Z",
+      tags: ["tech"],
+      isPublic: false,
+      userAuthUid: "user-2"
+    },
+    {
+      title: "Third Record",
+      content: "Another note",
+      createdAt: "2023-02-03T12:00:00Z",
+      tags: ["draft"],
+      isPublic: true,
+      userAuthUid: "user-3"
+    }
+  ])
+  auditLog_insertMany(data: [
+    { eventType: "LOGIN", timestamp: "2023-03-01T08:00:00Z", userAuthUid: "user-1" },
+    { eventType: "UPDATE_PROFILE", timestamp: "2023-03-01T09:00:00Z", userAuthUid: "user-2" },
+    { eventType: "LOGOUT", timestamp: "2023-03-01T10:00:00Z", userAuthUid: "user-3" }
+  ])
+}

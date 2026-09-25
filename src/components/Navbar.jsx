@@ -1,29 +1,52 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, Shield, ChevronRight, UserCheck, Sparkles } from "lucide-react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, X, ChevronRight, UserCheck } from "lucide-react";
 
-export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
+export default function Navbar({ onOpenLogin, onOpenRegister }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 40);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
+
   const navLinks = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Prestasi", href: "#prestasi" },
-    { label: "Kegiatan", href: "#kegiatan" },
-    { label: "E-Learning", href: "#elearning" }
-  ];
+    { label: "Home", to: "/" },
+    { label: "Prestasi", to: "/prestasi" },
+    { label: "Kegiatan", to: "/kegiatan" },
+    { label: "E-Learning", to: "/elearning" },
+    { label: "About", to: "/tentang" }
+  ]
+
+  const activeLinkStyle = {
+    color: "var(--color-ivory)",
+    borderBottom: "2px solid var(--color-ivory)",
+    paddingBottom: "4px",
+  };
+
+  const defaultLinkStyle = {
+    fontSize: "0.92rem",
+    fontWeight: 600,
+    letterSpacing: "0.05em",
+    color: "var(--color-frost)",
+    transition: "all 0.25s ease",
+    position: "relative",
+    padding: "6px 0",
+    textDecoration: "none",
+    borderBottom: "2px solid transparent",
+    paddingBottom: "4px",
+  };
 
   return (
     <header
@@ -46,8 +69,8 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
     >
       <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Brand Logo & Name */}
-        <a
-          href="#home"
+        <Link
+          to="/"
           style={{
             display: "flex",
             alignItems: "center",
@@ -55,7 +78,6 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
             textDecoration: "none"
           }}
         >
-          {/* Custom Winged Golf Emblem */}
           <div
             style={{
               width: "50px",
@@ -67,7 +89,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
               overflow: "hidden"
             }}
           >
-            <img src="/assets/logo/logo_ubg.png" alt="" style={{ width: "50px", height: "50px" }} />
+            <img src="/assets/logo/logo_ubg.png" alt="Logo UBG" style={{ width: "50px", height: "50px" }} />
           </div>
 
           <div>
@@ -86,7 +108,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
               BRAWIJAYA GOLF
             </div>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Navigation Links */}
         <nav
@@ -98,31 +120,29 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
           className="desktop-nav"
         >
           {navLinks.map((link) => (
-            <a
+            <NavLink
               key={link.label}
-              href={link.href}
-              style={{
-                fontSize: "0.92rem",
-                fontWeight: 600,
-                letterSpacing: "0.05em",
-                color: "var(--color-frost)",
-                transition: "all 0.25s ease",
-                position: "relative",
-                padding: "6px 0"
-              }}
+              to={link.to}
+              end={link.to === "/"}
+              style={({ isActive }) => ({
+                ...defaultLinkStyle,
+                ...(isActive ? activeLinkStyle : {})
+              })}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = "var(--color-ivory)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = "var(--color-frost)";
+                const isActive = location.pathname === link.to ||
+                  (link.to !== "/" && location.pathname.startsWith(link.to));
+                e.currentTarget.style.color = isActive ? "var(--color-ivory)" : "var(--color-frost)";
               }}
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
-        {/* Actions (Login & Gabung) */}
+        {/* Actions (Login) */}
         <div
           style={{
             display: "none",
@@ -159,21 +179,6 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
             <UserCheck size={16} />
             Login
           </button>
-
-          {/* <button
-            onClick={onOpenRegister}
-            className="btn btn-primary"
-            style={{
-              padding: "10px 22px",
-              fontSize: "0.88rem",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px"
-            }}
-          >
-            <Sparkles size={16} />
-            Gabung UBG
-          </button> */}
         </div>
 
         {/* Mobile Hamburger Toggle */}
@@ -218,24 +223,26 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
           }}
         >
           {navLinks.map((link) => (
-            <a
+            <NavLink
               key={link.label}
-              href={link.href}
+              to={link.to}
+              end={link.to === "/"}
               onClick={() => setMobileMenuOpen(false)}
-              style={{
+              style={({ isActive }) => ({
                 fontSize: "1.05rem",
                 fontWeight: 600,
-                color: "var(--color-ivory)",
+                color: isActive ? "var(--color-ivory)" : "var(--color-frost)",
                 padding: "8px 0",
                 borderBottom: "1px solid rgba(216, 223, 229, 0.08)",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between"
-              }}
+                justifyContent: "space-between",
+                textDecoration: "none"
+              })}
             >
               {link.label}
               <ChevronRight size={16} color="#6386AC" />
-            </a>
+            </NavLink>
           ))}
           <div style={{ display: "flex", gap: "12px", marginTop: "12px" }}>
             <button
@@ -250,7 +257,8 @@ export default function Navbar({ onOpenLogin, onOpenRegister, activeSection }) {
                 color: "var(--color-ivory)",
                 border: "1px solid var(--color-slate)",
                 background: "rgba(99, 134, 172, 0.2)",
-                fontWeight: 600
+                fontWeight: 600,
+                cursor: "pointer"
               }}
             >
               Login

@@ -36,8 +36,18 @@ export default function ProfileAbout() {
             <Flag size={14} color="#FDF6E5" />
             Company Profile & Nilai Luhur
           </div>
-          <h2 className="section-title">
-            Mengenal <span className="highlight">Brawijaya Golf (ALBATROS)</span>
+          <h2 className="section-title" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
+            <span>Mengenal <span className="highlight">Brawijaya Golf</span></span>
+            <img
+              src="/assets/logo/albatros_ivory.png"
+              alt="ALBATROS"
+              style={{
+                height: "36px",
+                width: "auto",
+                objectFit: "contain",
+                verticalAlign: "middle"
+              }}
+            />
           </h2>
           <p className="section-subtitle">
             Wadah resmi pembinaan olahraga golf civitas akademika Universitas Brawijaya yang menggabungkan kedisiplinan atletik, kecerdasan taktis, dan etika eksekutif sejak 2021.
@@ -71,7 +81,19 @@ export default function ProfileAbout() {
                 }}
               >
                 <Flame size={14} color="#FDF6E5" />
-                FILOSOFI NAMA "ALBATROS"
+                FILOSOFI LOGO & IDENTITAS
+              </div>
+              <div style={{ marginBottom: "16px" }}>
+                <img
+                  src="/assets/logo/albatros_ivory.png"
+                  alt="Albatros"
+                  style={{
+                    height: "36px",
+                    width: "auto",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0 4px 12px rgba(253, 246, 229, 0.2))"
+                  }}
+                />
               </div>
               <h3 style={{ fontSize: "1.9rem", marginBottom: "16px", color: "var(--color-ivory)" }}>
                 Pencapaian Langka, Dedikasi Tanpa Batas

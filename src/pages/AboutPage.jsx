@@ -140,7 +140,19 @@ export default function AboutPage() {
                 }}
               >
                 <Flame size={14} color="#FDF6E5" />
-                FILOSOFI NAMA "ALBATROS"
+                FILOSOFI LOGO & IDENTITAS
+              </div>
+              <div style={{ marginBottom: "18px" }}>
+                <img
+                  src="/assets/logo/albatros_ivory.png"
+                  alt="Albatros"
+                  style={{
+                    height: "clamp(32px, 4.5vw, 46px)",
+                    width: "auto",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0 4px 16px rgba(253, 246, 229, 0.25))"
+                  }}
+                />
               </div>
               <h2
                 style={{

@@ -1,0 +1,74 @@
+mutation CreateUserData @auth(level: USER) {
+  user_upsert(data: {
+    authUid_expr: "auth.uid",
+    email: "user@example.com",
+    createdAt: "2023-10-27T10:00:00Z"
+  })
+  profile_insert(data: {
+    userAuthUid_expr: "auth.uid",
+    bio: "Hello world!",
+    themePreference: "dark"
+  })
+}
+
+mutation CreateRecord($title: String!, $content: String!, $tags: [String!], $isPublic: Boolean!) @auth(level: USER) {
+  record_insert(data: {
+    title: $title,
+    content: $content,
+    tags: $tags,
+    isPublic: $isPublic,
+    userAuthUid_expr: "auth.uid",
+    createdAt: "2023-10-27T10:00:00Z"
+  })
+}
+
+mutation UpdateProfile($bio: String!) @auth(level: USER) {
+  profile_update(key: {id_expr: "auth.uid"}, data: {bio: $bio})
+}
+
+mutation DeleteRecord($id: UUID!) @auth(level: USER) {
+  record_delete(key: {id: $id})
+}
+
+mutation CreateAuditLog($eventType: String!) @auth(level: USER) {
+  auditLog_insert(data: {
+    eventType: $eventType,
+    timestamp: "2023-10-27T10:00:00Z",
+    userAuthUid_expr: "auth.uid"
+  })
+}
+
+query GetMyProfile @auth(level: USER) {
+  profile(key: {id_expr: "auth.uid"}) {
+    bio
+    themePreference
+  }
+}
+
+query ListMyRecords @auth(level: USER) {
+  records(where: {userAuthUid: {eq_expr: "auth.uid"}}) {
+    title
+    content
+    createdAt
+  }
+}
+
+query ListPublicRecords @auth(level: PUBLIC, insecureReason: "Publicly accessible records are intended to be shared.") {
+  records(where: {isPublic: {eq: true}}) {
+    title
+    content
+  }
+}
+
+query ListAuditLogs @auth(level: USER) {
+  auditLogs(where: {userAuthUid: {eq_expr: "auth.uid"}}) {
+    eventType
+    timestamp
+  }
+}
+
+query GetRole @auth(level: USER) {
+  roles(where: {userAuthUid: {eq_expr: "auth.uid"}}) {
+    roleName
+  }
+}
