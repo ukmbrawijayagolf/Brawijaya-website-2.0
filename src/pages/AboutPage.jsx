@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Shield, Target, Award, HeartHandshake, Flame, Users, Quote } from "lucide-react";
+import { Shield, Target, Award, HeartHandshake, Flame, Users, Quote, X } from "lucide-react";
 import ketuaUmumImage from "../assets/pengurus/ketuaumum.png";
 import wakilKetuaUmumImage from "../assets/pengurus/wakilketuaumu.png";
 import bendaharaImage from "../assets/pengurus/bendahara 1.png";
@@ -12,6 +12,25 @@ import academicImage from "../assets/pengurus/academic.png";
 import mediaCommunicationImage from "../assets/pengurus/mediancommunication.png";
 
 export default function AboutPage() {
+  const [selectedDivision, setSelectedDivision] = React.useState(null);
+
+  React.useEffect(() => {
+    if (!selectedDivision) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setSelectedDivision(null);
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [selectedDivision]);
+
   const pillars = [
     {
       icon: Shield,
@@ -69,37 +88,73 @@ export default function AboutPage() {
       {
         name: "Candra Van Deo",
         role: "Ketua Divisi Strategic and External Relation",
+        division: "Strategic and External Relation",
         image: strategicRelationImage
       },
       {
         name: "Ghani Akbar Ariyadi Putra",
         role: "Ketua Divisi Human Capital",
+        division: "Human Capital",
         image: humanCapitalImage
       },
       {
         name: "Byrne Paddy Azalea",
         role: "Ketua Divisi Academic",
+        division: "Academic",
         image: academicImage
       },
       {
         name: "Qoid Kafi",
         role: "Ketua Divisi Media and Communication",
+        division: "Media and Communication",
         image: mediaCommunicationImage
       }
     ]
   };
 
-  const renderMemberCard = (member, idx) => (
-    <div
-      key={idx}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-        width: "200px"
-      }}
-    >
+  const divisionMembers = {
+    "Human Capital": [
+      { name: "Ghani Akbar Ariyadi Putra", faculty: "FTP", position: "Kepala Departemen" },
+      { name: "Muhammad Wahyu Trisdiyanto", faculty: "FT", position: "Staf" },
+      { name: "Thalita Septriane Esliter", faculty: "FISIP", position: "Staf" },
+      { name: "Hanifa Mediana", faculty: "FEB", position: "Staf" },
+      { name: "Kafka Abyan Faischa", faculty: "FIB", position: "Staf" },
+      { name: "Rafi Dwi Admaja", faculty: "FK", position: "Staf" },
+      { name: "Alisya Salsabila", faculty: "FKG", position: "Staf" }
+    ],
+    Academic: [
+      { name: "Byrne Paddy Azalea", faculty: "FT", position: "Kepala Departemen" },
+      { name: "Jasmine Lawdzai Azizah K.", faculty: "FEB", position: "Staf" },
+      { name: "Ryvi Adwa Siswadi", faculty: "FT", position: "Staf" },
+      { name: "Rizki Bintang Ramadhania", faculty: "FMIPA", position: "Staf" },
+      { name: "Syahlania Reihana", faculty: "FH", position: "Staf" }
+    ],
+    "Media and Communication": [
+      { name: "Qoid Kafi", faculty: "FILKOM", position: "Kepala Departemen" },
+      { name: "Larissa Deianira Estella", faculty: "FILKOM", position: "Staf" },
+      { name: "Moch Syachril Jovendrik A.", faculty: "FPIK", position: "Staf" },
+      { name: "Muhammad Alif Satria Adiza", faculty: "FIB", position: "Staf" },
+      { name: "Shereen Surya Milova", faculty: "FILKOM", position: "Staf" },
+      { name: "Azzahra Putri Muhfida", faculty: "FILKOM", position: "Staf" },
+      { name: "Jane Christine Aron Sun Lie Ze", faculty: "FTP", position: "Staf" },
+      { name: "Fikhar Hendrisyahputra", faculty: "FT", position: "Staf" },
+      { name: "Naura Shahada Regian", faculty: "FIA", position: "Staf" },
+      { name: "Rafi Ahmad Dzulfaqar", faculty: "FILKOM", position: "Staf" },
+      { name: "Naila Putri Ramadhani", faculty: "FT", position: "Staf" }
+    ],
+    "Strategic and External Relation": [
+      { name: "Candra Van Deo", faculty: "FISIP", position: "Kepala Departemen" },
+      { name: "Daniswara Pradipta", faculty: "FEB", position: "Staf" },
+      { name: "Naufal Rafa Ramadhan", faculty: "FEB", position: "Staf" },
+      { name: "Ralph Gregory Altheo Simorangkir", faculty: "FEB", position: "Staf" },
+      { name: "Ananda Giovani Anggasta", faculty: "FH", position: "Staf" },
+      { name: "Rizka Aulia Nurwindya", faculty: "FISIP", position: "Staf" },
+      { name: "Firda Salha", faculty: "FIB", position: "Staf" }
+    ]
+  };
+
+  const renderMemberCard = (member, idx) => {
+    const photo = (
       <div
         style={{
           width: "100%",
@@ -109,7 +164,7 @@ export default function AboutPage() {
           border: "1px solid rgba(216, 223, 229, 0.2)",
           background: "rgba(99, 134, 172, 0.15)",
           boxShadow: "var(--shadow-md)",
-          marginBottom: "14px"
+          marginBottom: member.division ? 0 : "14px"
         }}
       >
         <img
@@ -126,30 +181,62 @@ export default function AboutPage() {
           onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
         />
       </div>
-      <h3
+    );
+
+    return (
+      <div
+        key={idx}
         style={{
-          fontSize: "1.05rem",
-          fontWeight: 600,
-          color: "var(--color-ivory)",
-          marginBottom: "4px"
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          width: "200px"
         }}
       >
-        {member.name}
-      </h3>
-      <p
-        style={{
-          fontSize: "0.85rem",
-          color: "var(--color-slate)",
-          fontWeight: 500,
-          margin: 0,
-          textTransform: "capitalize",
-          lineHeight: 1.4
-        }}
-      >
-        {member.role}
-      </p>
-    </div>
-  );
+        {member.division ? (
+          <button
+            type="button"
+            aria-label={`Lihat anggota divisi ${member.division}`}
+            onClick={() => setSelectedDivision(member.division)}
+            style={{
+              display: "block",
+              width: "100%",
+              padding: 0,
+              border: 0,
+              borderRadius: "18px",
+              background: "transparent",
+              marginBottom: "14px"
+            }}
+          >
+            {photo}
+          </button>
+        ) : photo}
+        <h3
+          style={{
+            fontSize: "1.05rem",
+            fontWeight: 600,
+            color: "var(--color-ivory)",
+            marginBottom: "4px"
+          }}
+        >
+          {member.name}
+        </h3>
+        <p
+          style={{
+            fontSize: "0.85rem",
+            color: "var(--color-slate)",
+            fontWeight: 500,
+            margin: 0,
+            textTransform: "capitalize",
+            lineHeight: 1.4
+          }}
+        >
+          {member.role}
+        </p>
+      </div>
+    );
+  };
 
   const testimonials = [
     // {
@@ -463,6 +550,88 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {selectedDivision && (
+        <div
+          onClick={() => setSelectedDivision(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            background: "rgba(0, 0, 0, 0.8)",
+            backdropFilter: "blur(12px)"
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="division-modal-title"
+            onClick={(event) => event.stopPropagation()}
+            style={{
+              width: "min(560px, 100%)",
+              maxHeight: "min(78vh, 720px)",
+              overflowY: "auto",
+              padding: "28px",
+              borderRadius: "var(--radius-md)",
+              background: "rgba(17, 29, 73, 0.98)",
+              border: "1px solid var(--border-gold)",
+              boxShadow: "var(--shadow-lg)"
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "20px", marginBottom: "20px" }}>
+              <div>
+                <p style={{ color: "var(--color-slate)", fontSize: "0.82rem", fontWeight: 600, marginBottom: "4px" }}>
+                  {divisionMembers[selectedDivision].length} anggota
+                </p>
+                <h3 id="division-modal-title" style={{ color: "var(--color-ivory)", fontSize: "1.35rem", lineHeight: 1.3 }}>
+                  {selectedDivision}
+                </h3>
+              </div>
+              <button
+                type="button"
+                aria-label="Tutup daftar anggota"
+                autoFocus
+                onClick={() => setSelectedDivision(null)}
+                style={{ color: "var(--color-frost)", padding: "4px", flexShrink: 0 }}
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div style={{ display: "grid", gap: "10px" }}>
+              {divisionMembers[selectedDivision].map((person) => (
+                <div
+                  key={person.name}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                    padding: "14px 16px",
+                    borderRadius: "var(--radius-sm)",
+                    background: "rgba(216, 223, 229, 0.07)",
+                    border: "1px solid rgba(216, 223, 229, 0.1)"
+                  }}
+                >
+                  <div>
+                    <h4 style={{ color: "var(--color-ivory)", fontSize: "0.95rem", lineHeight: 1.4, marginBottom: "3px" }}>
+                      {person.name}
+                    </h4>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{person.faculty}</p>
+                  </div>
+                  <span style={{ color: "var(--color-slate)", fontSize: "0.78rem", fontWeight: 600, textAlign: "right", flexShrink: 0 }}>
+                    {person.position}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Member Testimonials */}
       <section className="container">
