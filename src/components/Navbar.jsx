@@ -23,10 +23,11 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
 
   const navLinks = [
     { label: "Home", to: "/" },
-    { label: "Prestasi", to: "/prestasi" },
-    { label: "Kegiatan", to: "/kegiatan" },
+    // { label: "Prestasi", to: "/prestasi" },
+    // { label: "Kegiatan", to: "/kegiatan" },
     { label: "E-Learning", to: "/elearning" },
-    { label: "About", to: "/tentang" }
+    { label: "About", to: "/tentang" },
+    { label: "Profil", to: "/profil" }
   ]
 
   const activeLinkStyle = {

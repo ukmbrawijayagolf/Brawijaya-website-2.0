@@ -11,6 +11,7 @@ import AboutPage from "./pages/AboutPage";
 import ELearningPage from "./pages/ELearningPage";
 import KegiatanPage from "./pages/KegiatanPage";
 import PrestasiPage from "./pages/PrestasiPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/elearning" element={<ELearningPage onOpenRegister={handleOpenRegister} />} />
           <Route path="/kegiatan" element={<KegiatanPage />} />
           <Route path="/prestasi" element={<PrestasiPage />} />
+          <Route path="/profil" element={<ProfilePage />} />
         </Routes>
       </main>
 

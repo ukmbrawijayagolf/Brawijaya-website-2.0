@@ -135,7 +135,7 @@ export default function HomePage({ onOpenRegister }) {
               <ArrowRight size={16} />
             </Link>
 
-            <Link
+            {/* <Link
               to="/kegiatan"
               className="btn btn-secondary"
               style={{
@@ -144,7 +144,7 @@ export default function HomePage({ onOpenRegister }) {
               }}
             >
               Agenda Kegiatan
-            </Link>
+            </Link> */}
           </div>
         </div>
       </section>
@@ -202,7 +202,7 @@ export default function HomePage({ onOpenRegister }) {
                 hadir mematahkan stigma bahwa golf adalah olahraga yang eksklusif dan sulit dijangkau.
               </p>
               <p style={{ color: "var(--text-muted)", lineHeight: 1.8, marginBottom: "28px", fontWeight: 300 }}>
-                Kami memfasilitasi mahasiswa dari nol — mulai dari pemahaman grip, stance, dan etiket lapangan — hingga pembinaan atlet mahasiswa yang siap mewakili Brawijaya di kejuaraan nasional perguruan tinggi.
+                Kami memfasilitasi mahasiswa dari nol mulai dari pemahaman grip, stance, dan etiket lapangan hingga pembinaan atlet mahasiswa yang siap mewakili Brawijaya di kejuaraan nasional perguruan tinggi.
               </p>
 
               <Link
