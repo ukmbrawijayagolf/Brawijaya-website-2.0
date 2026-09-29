@@ -175,7 +175,7 @@ export default function Footer() {
               </div>
               <div style={{ display: "flex", gap: "10px" }}>
                 <Phone size={18} color="#6386AC" style={{ flexShrink: 0 }} />
-                <span>+62 812-3456-7890 (Humas UBG)</span>
+                <span>+62 813-3160-6400 (Humas UBG)</span>
               </div>
               <div style={{ display: "flex", gap: "10px" }}>
                 <Mail size={18} color="#6386AC" style={{ flexShrink: 0 }} />
@@ -198,7 +198,7 @@ export default function Footer() {
           }}
         >
           <div style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
-            © {new Date().getFullYear()} UKM Brawijaya Golf (ALBATROS) Universitas Brawijaya. All rights reserved.
+            © {new Date().getFullYear()} UKM Brawijaya Golf Universitas Brawijaya. All rights reserved.
           </div>
 
           <button

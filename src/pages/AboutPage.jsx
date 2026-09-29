@@ -1,6 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Shield, Target, Award, HeartHandshake, Flame, Users, Quote } from "lucide-react";
+import ketuaUmumImage from "../assets/pengurus/ketuaumum.png";
+import wakilKetuaUmumImage from "../assets/pengurus/wakilketuaumu.png";
+import bendaharaImage from "../assets/pengurus/bendahara 1.png";
+import bendahara2Image from "../assets/pengurus/bendahara 2.png";
+import sekretarisImage from "../assets/pengurus/sekretaris.png";
+import strategicRelationImage from "../assets/pengurus/strategicnrelation.png";
+import humanCapitalImage from "../assets/pengurus/humancapital.png";
+import academicImage from "../assets/pengurus/academic.png";
+import mediaCommunicationImage from "../assets/pengurus/mediancommunication.png";
 
 export default function AboutPage() {
   const pillars = [
@@ -26,48 +35,133 @@ export default function AboutPage() {
     }
   ];
 
-  const board = [
-    {
-      name: "Raditya Pratama",
-      role: "Ketua Umum UKM Brawijaya Golf",
-      faculty: "Fakultas Ilmu Administrasi '22",
-      handicap: "HDCP 6.4",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      name: "Salsabila Amanda",
-      role: "Wakil Ketua & Operasional Lapangan",
-      faculty: "Fakultas Ekonomi dan Bisnis '22",
-      handicap: "HDCP 9.8",
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      name: "Coach Denny Wijaya, PGA",
-      role: "Head Coach & Direktur Teknis",
-      faculty: "PGA Teaching Professional",
-      handicap: "Scratch Golfer",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      name: "Farhan Mahendra",
-      role: "Kepala Divisi Prestasi & Turnamen",
-      faculty: "Fakultas Teknik '23",
-      handicap: "HDCP 7.2",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
-    }
-  ];
+  const leadership = {
+    topTier: [
+      {
+        name: "Naufaldi Alfaghani",
+        role: "Ketua Umum",
+        image: ketuaUmumImage
+      },
+      {
+        name: "Tsaabitha Puti Calista",
+        role: "Wakil Ketua Umum",
+        image: wakilKetuaUmumImage
+      }
+    ],
+    midTier: [
+      {
+        name: "Azzahra Dineza Giviantari",
+        role: "Bendahara 1",
+        image: bendaharaImage
+      },
+      {
+        name: "Nabila Regita Cahyani Az zahro",
+        role: "Bendahara 2",
+        image: bendahara2Image
+      },
+      {
+        name: "Nadiyah Nasywa Amirah",
+        role: "Sekretaris",
+        image: sekretarisImage
+      }
+    ],
+    divisionTier: [
+      {
+        name: "Candra Van Deo",
+        role: "Ketua Divisi Strategic and External Relation",
+        image: strategicRelationImage
+      },
+      {
+        name: "Ghani Akbar Ariyadi Putra",
+        role: "Ketua Divisi Human Capital",
+        image: humanCapitalImage
+      },
+      {
+        name: "Byrne Paddy Azalea",
+        role: "Ketua Divisi Academic",
+        image: academicImage
+      },
+      {
+        name: "Qoid Kafi",
+        role: "Ketua Divisi Media and Communication",
+        image: mediaCommunicationImage
+      }
+    ]
+  };
+
+  const renderMemberCard = (member, idx) => (
+    <div
+      key={idx}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+        width: "200px"
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          height: "250px",
+          borderRadius: "18px",
+          overflow: "hidden",
+          border: "1px solid rgba(216, 223, 229, 0.2)",
+          background: "rgba(99, 134, 172, 0.15)",
+          boxShadow: "var(--shadow-md)",
+          marginBottom: "14px"
+        }}
+      >
+        <img
+          src={member.image}
+          alt={member.name}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            transition: "transform 0.4s ease"
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+        />
+      </div>
+      <h3
+        style={{
+          fontSize: "1.05rem",
+          fontWeight: 600,
+          color: "var(--color-ivory)",
+          marginBottom: "4px"
+        }}
+      >
+        {member.name}
+      </h3>
+      <p
+        style={{
+          fontSize: "0.85rem",
+          color: "var(--color-slate)",
+          fontWeight: 500,
+          margin: 0,
+          textTransform: "capitalize",
+          lineHeight: 1.4
+        }}
+      >
+        {member.role}
+      </p>
+    </div>
+  );
 
   const testimonials = [
-    {
-      quote: "Bergabung dengan UBG Albatros membuka relasi yang luar biasa luas dan mempercepat perkembangan swing saya dari nol hingga sekarang bisa bersaing di kejuaraan mahasiswa.",
-      author: "Kevin Anindito",
-      role: "Member Angkatan 2023 • FEB UB"
-    },
-    {
-      quote: "Latihan rutin terstruktur dengan pelatih berlisensi PGA membuat atmosfer latihan di Araya selalu seru, kompetitif, dan penuh kehangatan kekeluargaan.",
-      author: "Nabila Putri",
-      role: "Atlet ICGC Putri • FIA UB"
-    }
+    // {
+    //   quote: "Bergabung dengan UBG Albatros membuka relasi yang luar biasa luas dan mempercepat perkembangan swing saya dari nol hingga sekarang bisa bersaing di kejuaraan mahasiswa.",
+    //   author: "Kevin Anindito",
+    //   role: "Member Angkatan 2023 • FEB UB"
+    // },
+    // {
+    //   quote: "Latihan rutin terstruktur dengan pelatih berlisensi PGA membuat atmosfer latihan di Araya selalu seru, kompetitif, dan penuh kehangatan kekeluargaan.",
+    //   author: "Nabila Putri",
+    //   role: "Atlet ICGC Putri • FIA UB"
+    // }
   ];
 
   return (
@@ -182,7 +276,7 @@ export default function AboutPage() {
               }}
             >
               <img
-                src="https://images.unsplash.com/photo-1593111774642-a16223a54b41?auto=format&fit=crop&w=1000&q=80"
+                src="/assets/fotopengurus.webp"
                 alt="Filosofi Golf UKM Brawijaya"
                 style={{
                   width: "100%",
@@ -218,8 +312,8 @@ export default function AboutPage() {
               Visi Kami
             </h3>
             <p style={{ color: "var(--color-frost)", lineHeight: 1.8, fontSize: "1rem", fontWeight: 300 }}>
-              Menjadi wadah olahraga golf mahasiswa terdepan di tingkat nasional yang melahirkan atlet berprestasi, berintegritas tinggi, dan berjiwa kepemimpinan yang mengharumkan almamater Universitas Brawijaya.
-            </p>
+              Menjadikan UKM Brawijaya Golf sebagai rumah yang nyaman bagi seluruh anggota dan pengurus untuk bertumbuh, berprestasi, dan mempererat kekeluargaan.
+               </p>
           </div>
 
           <div className="luxury-card" style={{ padding: "40px" }}>
@@ -236,20 +330,20 @@ export default function AboutPage() {
             </h3>
             <ul style={{ color: "var(--color-frost)", lineHeight: 1.8, paddingLeft: "20px", fontWeight: 300 }}>
               <li style={{ marginBottom: "10px" }}>
-                Menyelenggarakan pelatihan golf berkala yang terarah dengan bimbingan pelatih profesional berlisensi PGA.
-              </li>
+                Membangun Kekeluargaan dan Kepercayaan
+                </li>
               <li style={{ marginBottom: "10px" }}>
-                Membina nilai-nilai etiket, kejujuran, dan sportivitas yang melekat erat pada tradisi olahraga golf.
-              </li>
+               Mencetak Prestasi yang Gemilang
+               </li>
               <li>
-                Mewakili Universitas Brawijaya dalam kompetisi golf antarmahasiswa tingkat daerah, nasional, dan internasional.
-              </li>
+                Memperkuat Branding & Kemandirian
+                </li>
             </ul>
           </div>
         </div>
       </section>
 
-      {/* 4 Pilar Utama */}
+      {/* 4 Pilar Utama
       <section className="container" style={{ marginBottom: "80px" }}>
         <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 48px auto" }}>
           <h2
@@ -303,10 +397,10 @@ export default function AboutPage() {
             );
           })}
         </div>
-      </section>
+      </section> */}
 
-      {/* BPH & Coaching Staff */}
-      <section className="container" style={{ marginBottom: "80px" }}>
+      {/* Kepengurusan Brawijaya Golf */}
+      <section className="container" style={{ marginBottom: "100px" }}>
         <div style={{ textAlign: "center", maxWidth: "600px", margin: "0 auto 48px auto" }}>
           <h2
             style={{
@@ -317,57 +411,56 @@ export default function AboutPage() {
               marginBottom: "12px"
             }}
           >
-            Kepengurusan & Pelatih
+            Kepengurusan Brawijaya Golf
           </h2>
           <p style={{ color: "var(--text-secondary)", fontWeight: 300 }}>
-            Tim penggerak dan instruktur teknis UKM Brawijaya Golf periode aktif.
+            Badan Pengurus Harian (BPH) dan Ketua Divisi UKM Brawijaya Golf periode aktif.
           </p>
         </div>
 
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: "28px"
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "48px"
           }}
         >
-          {board.map((member, idx) => (
-            <div
-              key={idx}
-              className="luxury-card"
-              style={{
-                padding: "24px",
-                textAlign: "center"
-              }}
-            >
-              <div
-                style={{
-                  width: "120px",
-                  height: "120px",
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  margin: "0 auto 20px auto",
-                  border: "2px solid rgba(253, 246, 229, 0.3)"
-                }}
-              >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              </div>
+          {/* Baris 1: Ketua Umum & Wakil Ketua Umum */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "36px"
+            }}
+          >
+            {leadership.topTier.map(renderMemberCard)}
+          </div>
 
-              <h3 style={{ fontSize: "1.15rem", color: "var(--color-ivory)", fontWeight: 600, marginBottom: "4px" }}>
-                {member.name}
-              </h3>
-              <div style={{ fontSize: "0.85rem", color: "var(--color-slate)", fontWeight: 500, marginBottom: "8px" }}>
-                {member.role}
-              </div>
-              <div style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
-                {member.faculty} • <span style={{ color: "var(--color-ivory)" }}>{member.handicap}</span>
-              </div>
-            </div>
-          ))}
+          {/* Baris 2: Bendahara & Sekretaris */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "36px"
+            }}
+          >
+            {leadership.midTier.map(renderMemberCard)}
+          </div>
+
+          {/* Baris 3: 4 Ketua Divisi */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "28px"
+            }}
+          >
+            {leadership.divisionTier.map(renderMemberCard)}
+          </div>
         </div>
       </section>
 
