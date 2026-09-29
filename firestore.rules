@@ -1,0 +1,49 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAttendanceAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/admin_users/$(request.auth.uid));
+    }
+
+    match /admin_users/{adminUid} {
+      allow get: if signedIn() && request.auth.uid == adminUid;
+      allow list, create, update, delete: if false;
+    }
+
+    match /users/{userId} {
+      allow get: if signedIn()
+        && (resource.data.email == request.auth.token.email || isAttendanceAdmin());
+      allow list: if isAttendanceAdmin();
+      allow create, update, delete: if false;
+    }
+
+    match /attendance_records/{recordId} {
+      allow read, delete: if isAttendanceAdmin();
+      allow create: if isAttendanceAdmin()
+        && request.resource.data.scannedBy == request.auth.uid
+        && request.resource.data.date is string
+        && request.resource.data.nim is string
+        && request.resource.data.name is string;
+      allow update: if false;
+    }
+
+    match /kegiatan/{activityId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /registrasi_anggota/{registrationId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

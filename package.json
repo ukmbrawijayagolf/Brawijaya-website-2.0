@@ -7,12 +7,17 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync:attendance-admins": "node scripts/syncAttendanceAdmins.js"
   },
   "dependencies": {
     "@dataconnect/generated": "file:src/dataconnect-generated",
+    "csv-parser": "^3.2.1",
     "firebase": "^12.19.0",
+    "firebase-admin": "^14.5.0",
+    "html5-qrcode": "^2.3.8",
     "lucide-react": "^1.46.0",
+    "qrcode.react": "^4.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4"

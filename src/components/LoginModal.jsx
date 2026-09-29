@@ -1,32 +1,71 @@
 import React, { useState } from "react";
 import { X, Lock, Mail, CheckCircle2, LogIn, AlertCircle } from "lucide-react";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { auth, db, isFirebaseConfigured } from "../services/firebase";
 
-export default function LoginModal({ isOpen, onClose }) {
+export default function LoginModal({ isOpen, onClose, onLoginSuccess }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   // Login form state
   const [loginData, setLoginData] = useState({
     email: "",
-    password: ""
+    nim: ""
   });
 
   if (!isOpen) return null;
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage("");
+    setSuccessMessage("");
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSuccessMessage("Autentikasi Berhasil! Selamat datang di Portal Anggota UBG Albatros.");
+    try {
+      if (!isFirebaseConfigured) {
+        setErrorMessage("Konfigurasi Firebase belum tersedia. Silakan hubungi administrator.");
+        return;
+      }
+
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        loginData.email.toLowerCase().trim(),
+        loginData.nim.trim()
+      );
+      const user = userCredential.user;
+      const documentId = (user.email || loginData.email).replace(/[^a-zA-Z0-9]/g, "_");
+      const userSnapshot = await getDoc(doc(db, "users", documentId));
+
+      if (!userSnapshot.exists()) {
+        await signOut(auth);
+        setErrorMessage("Data akun tidak ditemukan di database.");
+        return;
+      }
+
+      const userData = userSnapshot.data();
+      setSuccessMessage("Autentikasi berhasil. Selamat datang di Portal Anggota UBG Albatros.");
+      onLoginSuccess?.(user, userData);
+      navigate("/");
       setTimeout(() => {
         setSuccessMessage("");
         onClose();
       }, 1800);
-    }, 1000);
+    } catch (error) {
+      console.error("Login Error:", error);
+      if (["auth/invalid-credential", "auth/wrong-password", "auth/user-not-found", "auth/invalid-email"].includes(error.code)) {
+        setErrorMessage("Email atau NIM yang Anda masukkan salah!");
+      } else if (error.code === "auth/too-many-requests") {
+        setErrorMessage("Terlalu banyak percobaan login. Silakan coba lagi nanti.");
+      } else {
+        setErrorMessage("Gagal login: " + error.message);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -153,12 +192,12 @@ export default function LoginModal({ isOpen, onClose }) {
         <form onSubmit={handleLoginSubmit}>
           <div style={{ marginBottom: "18px" }}>
             <label style={{ display: "block", fontSize: "0.82rem", color: "var(--color-frost)", marginBottom: "8px", fontWeight: 600 }}>
-              Email Mahasiswa / NIM
+              Email Student / Gmail
             </label>
             <div style={{ position: "relative" }}>
               <Mail size={18} color="#6386AC" style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)" }} />
               <input
-                type="text"
+                type="email"
                 required
                 placeholder="contoh@student.ub.ac.id"
                 value={loginData.email}
@@ -179,16 +218,16 @@ export default function LoginModal({ isOpen, onClose }) {
 
           <div style={{ marginBottom: "24px" }}>
             <label style={{ display: "block", fontSize: "0.82rem", color: "var(--color-frost)", marginBottom: "8px", fontWeight: 600 }}>
-              Kata Sandi
+              Password (NIM)
             </label>
             <div style={{ position: "relative" }}>
               <Lock size={18} color="#6386AC" style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)" }} />
               <input
                 type="password"
                 required
-                placeholder="••••••••"
-                value={loginData.password}
-                onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                placeholder="Masukkan NIM Anda"
+                value={loginData.nim}
+                onChange={(e) => setLoginData({ ...loginData, nim: e.target.value })}
                 style={{
                   width: "100%",
                   padding: "12px 14px 12px 42px",

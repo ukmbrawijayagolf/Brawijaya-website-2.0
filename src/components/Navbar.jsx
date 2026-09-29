@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, ChevronRight, UserCheck } from "lucide-react";
+import { Menu, X, ChevronRight, UserCheck, UserRound, BookOpen, LogOut, ScanLine } from "lucide-react";
 
-export default function Navbar({ onOpenLogin, onOpenRegister }) {
+export default function Navbar({ isLoggedIn, isAdmin, onLogout, onOpenLogin, onOpenRegister }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,8 +20,27 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
+    setProfileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!profileMenuOpen) return undefined;
+
+    const closeOnOutsideClick = (event) => {
+      if (!profileMenuRef.current?.contains(event.target)) setProfileMenuOpen(false);
+    };
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") setProfileMenuOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [profileMenuOpen]);
 
   const navLinks = [
     { label: "Home", to: "/" },
@@ -27,27 +48,9 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
     // { label: "Kegiatan", to: "/kegiatan" },
     { label: "E-Learning", to: "/elearning" },
     { label: "About", to: "/tentang" },
-    { label: "Profil", to: "/profil" }
+    { label: "Profil", to: "/profil" },
+    ...(isAdmin ? [{ label: "Presensi", to: "/presensi" }] : [])
   ]
-
-  const activeLinkStyle = {
-    color: "var(--color-ivory)",
-    borderBottom: "2px solid var(--color-ivory)",
-    paddingBottom: "4px",
-  };
-
-  const defaultLinkStyle = {
-    fontSize: "0.92rem",
-    fontWeight: 600,
-    letterSpacing: "0.05em",
-    color: "var(--color-frost)",
-    transition: "all 0.25s ease",
-    position: "relative",
-    padding: "6px 0",
-    textDecoration: "none",
-    borderBottom: "2px solid transparent",
-    paddingBottom: "4px",
-  };
 
   return (
     <header
@@ -111,102 +114,129 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav
-          style={{
-            display: "none",
-            alignItems: "center",
-            gap: "36px"
-          }}
-          className="desktop-nav"
-        >
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.label}
-              to={link.to}
-              end={link.to === "/"}
-              style={({ isActive }) => ({
-                ...defaultLinkStyle,
-                ...(isActive ? activeLinkStyle : {})
-              })}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "var(--color-ivory)";
-              }}
-              onMouseLeave={(e) => {
-                const isActive = location.pathname === link.to ||
-                  (link.to !== "/" && location.pathname.startsWith(link.to));
-                e.currentTarget.style.color = isActive ? "var(--color-ivory)" : "var(--color-frost)";
-              }}
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        {/* Actions (Login) */}
         <div
-          style={{
-            display: "none",
-            alignItems: "center",
-            gap: "14px"
-          }}
-          className="desktop-actions"
-        >
-          <button
-            onClick={onOpenLogin}
-            style={{
-              padding: "10px 20px",
-              borderRadius: "999px",
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              color: "var(--color-ivory)",
-              background: "rgba(99, 134, 172, 0.15)",
-              border: "1px solid rgba(216, 223, 229, 0.25)",
-              cursor: "pointer",
-              transition: "all 0.25s ease",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px"
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(99, 134, 172, 0.35)";
-              e.currentTarget.style.borderColor = "var(--color-ivory)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(99, 134, 172, 0.15)";
-              e.currentTarget.style.borderColor = "rgba(216, 223, 229, 0.25)";
-            }}
-          >
-            <UserCheck size={16} />
-            Login
-          </button>
-        </div>
-
-        {/* Mobile Hamburger Toggle */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-            width: "42px",
-            height: "42px",
-            borderRadius: "10px",
-            background: "rgba(17, 29, 73, 0.6)",
-            border: "1px solid rgba(216, 223, 229, 0.2)",
-            color: "var(--color-ivory)",
-            cursor: "pointer"
+            gap: "10px"
           }}
-          className="mobile-toggle"
-          aria-label="Toggle Navigation Menu"
         >
-          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+          <div ref={profileMenuRef} style={{ position: "relative" }}>
+            {isLoggedIn ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => setProfileMenuOpen((isOpen) => !isOpen)}
+                  aria-expanded={profileMenuOpen}
+                  aria-haspopup="menu"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "10px 14px",
+                    borderRadius: "999px",
+                    color: "var(--color-ivory)",
+                    background: "rgba(99, 134, 172, 0.2)",
+                    border: "1px solid rgba(216, 223, 229, 0.25)",
+                    fontSize: "0.9rem",
+                    fontWeight: 600,
+                    cursor: "pointer"
+                  }}
+                >
+                  <UserRound size={17} />
+                  Profil
+                  <ChevronRight size={15} style={{ transform: profileMenuOpen ? "rotate(90deg)" : "none", transition: "transform 180ms ease" }} />
+                </button>
+                {profileMenuOpen && (
+                  <div
+                    role="menu"
+                    style={{
+                      position: "absolute",
+                      top: "calc(100% + 10px)",
+                      right: 0,
+                      width: "210px",
+                      padding: "8px",
+                      border: "1px solid rgba(216, 223, 229, 0.2)",
+                      borderRadius: "10px",
+                      background: "rgba(17, 29, 73, 0.98)",
+                      boxShadow: "0 16px 36px rgba(0, 0, 0, 0.4)"
+                    }}
+                  >
+                    <Link to="/profil" role="menuitem" onClick={() => setProfileMenuOpen(false)} style={accountMenuItemStyle}>
+                      <UserRound size={17} /> Profil Saya
+                    </Link>
+                    {isAdmin && (
+                      <Link to="/presensi" role="menuitem" onClick={() => setProfileMenuOpen(false)} style={accountMenuItemStyle}>
+                        <ScanLine size={17} /> Kelola Presensi
+                      </Link>
+                    )}
+                    <Link to="/elearning" role="menuitem" onClick={() => setProfileMenuOpen(false)} style={accountMenuItemStyle}>
+                      <BookOpen size={17} /> E-Learning
+                    </Link>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={() => {
+                        setProfileMenuOpen(false);
+                        onLogout();
+                      }}
+                      style={{ ...accountMenuItemStyle, width: "100%", color: "#f2b8b5", borderTop: "1px solid rgba(216, 223, 229, 0.12)", marginTop: "4px", paddingTop: "12px" }}
+                    >
+                      <LogOut size={17} /> Keluar
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <button
+                onClick={onOpenLogin}
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "999px",
+                  fontSize: "0.9rem",
+                  fontWeight: 600,
+                  color: "var(--color-ivory)",
+                  background: "rgba(99, 134, 172, 0.15)",
+                  border: "1px solid rgba(216, 223, 229, 0.25)",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px"
+                }}
+              >
+                <UserCheck size={16} /> Masuk
+              </button>
+            )}
+          </div>
+
+          <button
+            onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "42px",
+              height: "42px",
+              borderRadius: "10px",
+              background: "rgba(17, 29, 73, 0.6)",
+              border: "1px solid rgba(216, 223, 229, 0.2)",
+              color: "var(--color-ivory)",
+              cursor: "pointer"
+            }}
+            className="mobile-toggle"
+            aria-label={mobileMenuOpen ? "Tutup navigasi" : "Buka navigasi"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="navigation-drawer"
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div
+          id="navigation-drawer"
           style={{
             position: "absolute",
             top: "100%",
@@ -245,46 +275,36 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
               <ChevronRight size={16} color="#6386AC" />
             </NavLink>
           ))}
-          <div style={{ display: "flex", gap: "12px", marginTop: "12px" }}>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenLogin();
-              }}
-              style={{
-                flex: 1,
-                padding: "12px",
-                borderRadius: "999px",
-                color: "var(--color-ivory)",
-                border: "1px solid var(--color-slate)",
-                background: "rgba(99, 134, 172, 0.2)",
-                fontWeight: 600,
-                cursor: "pointer"
-              }}
-            >
-              Login
-            </button>
+          {!isLoggedIn && (
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenRegister();
               }}
               className="btn btn-primary"
-              style={{ flex: 1, padding: "12px" }}
+              style={{ padding: "12px" }}
             >
               Gabung UBG
             </button>
-          </div>
+          )}
         </div>
       )}
-
-      <style>{`
-        @media (min-width: 860px) {
-          .desktop-nav { display: flex !important; }
-          .desktop-actions { display: flex !important; }
-          .mobile-toggle { display: none !important; }
-        }
-      `}</style>
     </header>
   );
 }
+
+const accountMenuItemStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+  padding: "11px 10px",
+  border: 0,
+  borderRadius: "6px",
+  background: "transparent",
+  color: "var(--color-frost)",
+  font: "inherit",
+  fontSize: "0.9rem",
+  textAlign: "left",
+  textDecoration: "none",
+  cursor: "pointer"
+};

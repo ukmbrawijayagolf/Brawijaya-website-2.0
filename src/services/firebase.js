@@ -1,36 +1,26 @@
-import { initializeApp, getApps } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC4xirvh_REklPAV9i3PP0RzG2dY6yIk5Y",
-  authDomain: "brawijayagroup.firebaseapp.com",
-  projectId: "brawijayagroup",
-  storageBucket: "brawijayagroup.firebasestorage.app",
-  messagingSenderId: "875959679313",
-  appId: "1:875959679313:web:da4a3110a9d961258e7b70",
-  measurementId: "G-QBXF2503Q5"
+  apiKey: "AIzaSyCbPe2E-nIoMYgsmBFBkXNLhd7DaO4HBRA",
+  authDomain: "brawijayagolf.firebaseapp.com",
+  projectId: "brawijayagolf",
+  storageBucket: "brawijayagolf.firebasestorage.app",
+  messagingSenderId: "570123219108",
+  appId: "1:570123219108:web:5f53dc6064b302f8d6b631",
+  measurementId: "G-X58M79DDHH"
 };
 
-// Check if credentials are user-configured
 export const isFirebaseConfigured = Boolean(
-  import.meta.env.VITE_FIREBASE_API_KEY && 
-  import.meta.env.VITE_FIREBASE_PROJECT_ID
+  firebaseConfig.apiKey &&
+  firebaseConfig.authDomain &&
+  firebaseConfig.projectId &&
+  firebaseConfig.appId
 );
 
-// Initialize Firebase safely
-let app;
-let db = null;
-
-try {
-  if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
-  } else {
-    app = getApps()[0];
-  }
-  db = getFirestore(app);
-} catch (error) {
-  console.warn("Firebase initialization note: Running with local dynamic storage fallback.", error);
-}
-
-export { app, db };
+const app = isFirebaseConfigured
+  ? (!getApps().length ? initializeApp(firebaseConfig) : getApp())
+  : null;
+export const db = app ? getFirestore(app) : null;
+export const auth = app ? getAuth(app) : null;

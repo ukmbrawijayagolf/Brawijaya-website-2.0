@@ -13,10 +13,12 @@ dist-ssr
 *.local
 .env
 .env.*
+!.env.example
 
 
 .vscode/*
 !.vscode/extensions.json
+serviceAccountKey.json
 .idea
 .DS_Store
 *.suo
